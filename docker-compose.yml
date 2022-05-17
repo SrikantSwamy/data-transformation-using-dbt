@@ -1,0 +1,25 @@
+services:
+    postgres:
+      image: postgres:13
+      environment:
+        POSTGRES_USER: dbt
+        POSTGRES_PASSWORD: password1234
+        POSTGRES_DB: dbt
+      volumes:
+        - ./raw_data:/input_data
+        - ./temp:/temp
+        - ./load_initial/initial_setup.sql:/docker-entrypoint-initdb.d/initial_setup.sql
+        - ./pgdata:/var/lib/postgresql/data/
+      restart: always
+      ports:
+        - "5432:5432"
+
+    pgadmin:
+      container_name: pgadmin4_container
+      image: dpage/pgadmin4
+      restart: always
+      environment:
+        PGADMIN_DEFAULT_EMAIL: admin@admin.com
+        PGADMIN_DEFAULT_PASSWORD: root
+      ports:
+        - "5050:80"
