@@ -8,7 +8,8 @@ services:
       volumes:
         - ./raw_data:/input_data
         - ./temp:/temp
-        - ./load_initial:/docker-entrypoint-initdb.d
+        - ./load_initial/initial_setup.sql:/docker-entrypoint-initdb.d/initial_setup.sql
+        - ./pgdata:/var/lib/postgresql/data/
       restart: always
       ports:
         - "5432:5432"

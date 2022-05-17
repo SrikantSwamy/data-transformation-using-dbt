@@ -57,16 +57,18 @@ CREATE TABLE warehouse.taxi_zone_lookup
     service_zone VARCHAR(255)
 );
 
-COPY stg_trip_data_green
+COPY warehouse.trip_data_green
 FROM '/input_data/green_tripdata_2022-02.csv'
 DELIMITER ','
 CSV HEADER;
 
-COPY stg_trip_data_yellow
+COPY warehouse.trip_data_yellow
 FROM '/input_data/yellow_tripdata_2022-02.csv'
 DELIMITER ','
 CSV HEADER;
 
-
-
+COPY warehouse.taxi_zone_lookup
+FROM '/input_data/taxi+_zone_lookup.csv'
+DELIMITER ','
+CSV HEADER;
 
