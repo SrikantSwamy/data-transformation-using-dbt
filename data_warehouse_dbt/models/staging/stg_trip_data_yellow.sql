@@ -1,0 +1,35 @@
+{{ config(materialized='view') }}
+ 
+with cte2 as 
+(
+  select *,
+         row_number() over(partition by vendorid, tpep_pickup_datetime) as rn
+  from {{ source('staging','trip_data_yellow') }}
+  where vendorid is not null 
+)
+select
+    {{ dbt_utils.surrogate_key(['vendorid', 'tpep_pickup_datetime']) }} as tripid,
+    cast(vendorid as integer) as vendorid,
+    cast(ratecodeid as integer) as ratecodeid,
+    cast(pulocationid as integer) as  pickup_locationid,
+    cast(dolocationid as integer) as dropoff_locationid,
+    cast(tpep_pickup_datetime as timestamp) as pickup_datetime,
+    cast(tpep_dropoff_datetime as timestamp) as dropoff_datetime,
+    store_and_fwd_flag,
+    cast(passenger_count as integer) as passenger_count,
+    cast(trip_distance as numeric) as trip_distance,
+    -- yellow cabs are always street-hail
+    1 as trip_type,
+    cast(fare_amount as numeric) as fare_amt,
+    cast(extra as numeric) as extra,
+    cast(mta_tax as numeric) as mta_tax,
+    cast(tip_amount as numeric) as tip_amt,
+    cast(tolls_amount as numeric) as tolls_amt,
+    cast(0 as numeric) as ehail_fee,
+    cast(improvement_surcharge as numeric) as improvement_surcharge,
+    cast(total_amount as numeric) as total_amt,
+    cast(payment_type as integer) as payment_type,
+    {{ get_payment_type_description('payment_type') }} as payment_type_descr, 
+    cast(congestion_surcharge as numeric) as congestion_surcharge
+from cte2
+where rn = 1
