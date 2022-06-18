@@ -8,6 +8,7 @@ sources:
       tables:
         - name: trip_data_green
         - name: trip_data_yellow
+        - name: taxi_zone_lookup
 models:
     - name: stg_trip_data_green
       description: >
@@ -23,7 +24,7 @@ models:
           - name: VendorID 
             description: > 
                 A code indicating the TPEP provider that provided the record.
-                1= Creative Mobile Technologies, LLC; 
+                1= Creative Mobile Technologies; 
                 2= VeriFone Inc.
           - name: pickup_datetime 
             description: The date and time when the meter was engaged.

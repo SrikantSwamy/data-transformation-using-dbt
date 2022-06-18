@@ -9,8 +9,7 @@ models:
     description: >
       Taxi trips corresponding to both service zones (Green and Yellow).
       The table contains records where both pickup and dropoff locations are valid and known zones. 
-      Each record corresponds to a trip uniquely identified by tripid. 
-      
+      Each record corresponds to a trip uniquely identified by tripid.    
   - name: monthly_zone_rev
     description: >
       Aggregated table of all taxi trips corresponding to both service zones (Green and yellow) per pickup zone, month and service.

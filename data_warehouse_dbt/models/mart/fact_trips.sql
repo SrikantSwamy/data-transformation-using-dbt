@@ -36,16 +36,16 @@ select
     cte_union.passenger_count as passenger_cnt, 
     cte_union.trip_distance, 
     cte_union.trip_type, 
-    cte_union.fare_amount as fare_amt, 
+    cte_union.fare_amt as fare_amt, 
     cte_union.extra, 
     cte_union.mta_tax, 
-    cte_union.tip_amount as tip_amt, 
-    cte_union.tolls_amount as tolls_amt, 
+    cte_union.tip_amt as tip_amt, 
+    cte_union.tolls_amt as tolls_amt, 
     cte_union.ehail_fee, 
     cte_union.improvement_surcharge, 
-    cte_union.total_amount as total_amt, 
+    cte_union.total_amt as total_amt, 
     cte_union.payment_type, 
-    cte_union.payment_type_description as payment_type_descr, 
+    cte_union.payment_type_descr as payment_type_descr, 
     cte_union.congestion_surcharge
 from cte_union
 inner join dim_zones as pickup_zone
